@@ -25,6 +25,9 @@ class LoginForm(FlaskForm):
         Email()
     ])
 
+class NameForm(LoginForm):
+    first_name = StringField('1st Name')
+    second_name = StringField('2nd Name')
 
 class User():
     def __init__(self, username, age, email) -> None:
@@ -38,7 +41,7 @@ class User():
     def index():
 
         User_sylwek = User(username='Stalonek', age=32, email='cykor13@gmail.com')
-        form = LoginForm(obj=User_sylwek)
+        form = NameForm(obj=User_sylwek)
 
         if form.validate_on_submit():
             return f'<h1> Username: {form.username.data} password: {form.password.data} Age: {form.age.data} Yes or No: {form.yes_no.data} email: {form.email.data}</h1>'
