@@ -1,11 +1,16 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField, BooleanField
+from wtforms import StringField, PasswordField, IntegerField, BooleanField, Form, FormField
 from wtforms.validators import InputRequired, Length, AnyOf, Email
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'MySecret!'
+
+class TelephoneForm(Form):
+    country_code = StringField('Country code:')
+    area_code = IntegerField('Area code')
+    number = StringField('number')
 
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[
@@ -28,6 +33,8 @@ class LoginForm(FlaskForm):
 class NameForm(LoginForm):
     first_name = StringField('1st Name')
     second_name = StringField('2nd Name')
+    home_phone = FormField(TelephoneForm)
+    mobile_phone = FormField(TelephoneForm)
 
 class User():
     def __init__(self, username, age, email) -> None:
@@ -44,7 +51,8 @@ class User():
         form = NameForm(obj=User_sylwek)
 
         if form.validate_on_submit():
-            return f'<h1> Username: {form.username.data} password: {form.password.data} Age: {form.age.data} Yes or No: {form.yes_no.data} email: {form.email.data}</h1>'
+            return f'Home Phone area code: {form.home_phone.area_code.data} and Mobile area code is: {form.mobile_phone.area_code.data}'
+            # return f'<h1> Username: {form.username.data} password: {form.password.data} Age: {form.age.data} Yes or No: {form.yes_no.data} email: {form.email.data}</h1>'
         
         return render_template('index.html', form=form)
 
