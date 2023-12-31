@@ -18,6 +18,10 @@
         {{renderfield(form.home_phone)}}
         {{renderfield(form.mobile_phone)}}
 
+        {% for form in form.years %}
+            {{renderfield(form)}}
+        {% endfor %}
+
       <button>Login</button>
     </form>
   </body>
