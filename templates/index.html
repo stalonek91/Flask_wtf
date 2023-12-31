@@ -12,7 +12,11 @@
     <form method="POST" action="/">
       <ul>
         {{ form.csrf_token }} 
-        {{renderfield(form.username)}} {{renderfield(form.password)}} {{renderfield(form.age)}}
+        {{renderfield(form.username)}} 
+        {% if form.password %}
+        {{renderfield(form.password)}}
+        {% endif %}
+        {{renderfield(form.age)}}
         {{renderfield(form.yes_no)}} {{renderfield(form.email)}} 
         {{renderfield(form.first_name)}} {{renderfield(form.second_name)}}
         {{renderfield(form.home_phone)}}

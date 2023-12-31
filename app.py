@@ -67,6 +67,8 @@ class User():
         User_sylwek = User(username='Stalonek', age=32, email='cykor13@gmail.com')
         form = NameForm(obj=User_sylwek, data=data)
 
+        del form.password
+
         if form.validate_on_submit():
             # return f'Home Phone area code: {form.home_phone.area_code.data} and Mobile area code is: {form.mobile_phone.area_code.data}'
             # return f'<h1> Username: {form.username.data} password: {form.password.data} Age: {form.age.data} Yes or No: {form.yes_no.data} email: {form.email.data}</h1>'
