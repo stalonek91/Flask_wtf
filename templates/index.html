@@ -25,6 +25,9 @@
         {% for form in form.years %}
             {{renderfield(form)}}
         {% endfor %}
+        
+        {{renderfield(form.recaptcha)}}
+
 
       <button>Login</button>
     </form>
