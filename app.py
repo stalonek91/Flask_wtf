@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, PasswordField, IntegerField, BooleanField, Form, FormField, FieldList
+from wtforms import StringField, PasswordField, IntegerField, BooleanField, Form, FormField, FieldList, ValidationError
 from wtforms.validators import InputRequired, Length, AnyOf, Email
 from collections import namedtuple
 
@@ -46,6 +46,10 @@ class NameForm(LoginForm):
     mobile_phone = FormField(TelephoneForm)
     years = FieldList(FormField(YearForm), min_entries=3)
     recaptcha = RecaptchaField('recaptcha')
+
+    def validate_first_name(form, field):
+        if len (field.data) > 5:
+            raise ValidationError('First name must be max 5 char long')
 
 class User():
     def __init__(self, username, age, email) -> None:
