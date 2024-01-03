@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, PasswordField, IntegerField, BooleanField, Form, FormField, FieldList, ValidationError
 from wtforms.validators import InputRequired, Length, AnyOf, Email
 from collections import namedtuple
+from wtforms.fields import DateField
 
 
 app = Flask(__name__)
@@ -58,7 +59,7 @@ class User():
         self.email = email
 
 class DynamicForm(FlaskForm):
-    pass
+    entry_email = DateField('email')
 
 @app.route('/dynamic', methods = ['POST', 'GET'])
 def dynamic():
@@ -73,7 +74,7 @@ def dynamic():
     form = DynamicForm()
 
     if form.validate_on_submit():
-        return f'Name is: {form.name.data} Nickname is: {form.Nick_name.data}'
+        return f'Email is: {form.entry_email.data} is: {form.name.data} Nickname is: {form.Nick_name.data}'
     
     return render_template('dynamic.html', form=form, names=names)
     
